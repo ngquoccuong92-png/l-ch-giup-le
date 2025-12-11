@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<title>Lịch Giúp Lễ</title>
+<style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #555; padding: 8px; text-align: center; }
+    select { width: 130px; margin: 2px 0; }
+    button { padding: 10px 16px; margin-top: 20px; font-size: 16px; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<h2>Bảng Chia Lịch Giúp Lễ</h2>
+
+<table>
+    <tr>
+        <th>Thứ</th>
+        <th>Buổi Sáng</th>
+        <th>Buổi Tối</th>
+    </tr>
+
+    <!-- Thứ Hai -->
+    <tr>
+        <td>Thứ Hai</td>
+        <td>—</td>
+        <td class="cell" data-id="mon"></td>
+    </tr>
+
+    <!-- Thứ Ba -->
+    <tr>
+        <td>Thứ Ba</td>
+        <td>—</td>
+        <td class="cell" data-id="tue"></td>
+    </tr>
+
+    <!-- Thứ Tư -->
+    <tr>
+        <td>Thứ Tư</td>
+        <td>—</td>
+        <td class="cell" data-id="wed"></td>
+    </tr>
+
+    <!-- Thứ Năm -->
+    <tr>
+        <td>Thứ Năm</td>
+        <td>—</td>
+        <td class="cell" data-id="thu"></td>
+    </tr>
+
+    <!-- Thứ Sáu -->
+    <tr>
+        <td>Thứ Sáu</td>
+        <td>—</td>
+        <td class="cell" data-id="fri"></td>
+    </tr>
+
+    <!-- Thứ Bảy -->
+    <tr>
+        <td rowspan="2">Thứ Bảy</td>
+        <td class="cell" data-id="sat_s"></td>
+        <td rowspan="2" class="cell" data-id="sat_c"></td>
+    </tr>
+    <tr><td></td></tr>
+
+    <!-- Chủ Nhật -->
+    <tr>
+        <td>Chủ Nhật</td>
+        <td>—</td>
+        <td class="cell" data-id="sun"></td>
+    </tr>
+</table>
+
+<button onclick="downloadWord()">Tải Lịch Xuống File Word</button>
+
+<script>
+const names = [
+    "Vỹ","Thắng","Vy","Thư","Thương","N.Minh","K.Bình","N.Anh",
+    "V.Minh","Quân","Lan","Thảo","Long","H.Anh","Ánh (bé)","Bích",
+    "Phong","Phúc","Linh (bé)","Ngà","Trãi","Ánh (lớn)",
+    "Nhi","Dũng","Cường","Sấy","Triệu"
+];
+
+// tạo dropdown
+function makeSelect() {
+    let html = "<select>";
+    html += `<option value="">---</option>`;
+    names.forEach(n => html += `<option>${n}</option>`);
+    html += "</select>";
+    return html;
+}
+
+// gắn dropdown vào các ô
+document.querySelectorAll(".cell").forEach(cell => {
+    let id = cell.dataset.id;
+    let count = (id === "sat_s") ? 2 : 4; 
+    for (let i = 1; i <= count; i++) cell.innerHTML += makeSelect() + "<br>";
+});
+
+
+// ===== XUẤT FILE WORD =====
+function downloadWord() {
+    let content = "<h2>Lịch Giúp Lễ</h2><table border='1' cellspacing='0' cellpadding='6'>";
+
+    document.querySelectorAll("table tr").forEach(tr => {
+        content += "<tr>";
+        tr.querySelectorAll("td,th").forEach(cell => {
+            if (cell.classList.contains("cell")) {
+                let selects = [...cell.querySelectorAll("select")].map(s => s.value || "—").join(" – ");
+                content += `<td>${selects}</td>`;
+            } else {
+                content += `<td>${cell.innerText}</td>`;
+            }
+        });
+        content += "</tr>";
+    });
+
+    content += "</table>";
+
+    let blob = new Blob(['\ufeff', content], { type: 'application/msword' });
+    let url = URL.createObjectURL(blob);
+
+    let a = document.createElement("a");
+    a.href = url;
+    a.download = "lich_giup_le.doc";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+}
+</script>
+
+</body>
+</html>
