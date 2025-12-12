@@ -1,279 +1,108 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="utf-8" />
-<title>Lịch Giúp Lễ — Có Lịch Sử</title>
+<meta charset="UTF-8" />
+<title>Lịch Giúp Lễ</title>
 <style>
-    body { font-family: Arial, sans-serif; padding: 0; margin: 0; background:#f4f6f8;}
-    nav { background:#2b63c6; color:#fff; padding:12px 20px; display:flex; gap:20px; align-items:center;}
-    nav a { color:#fff; text-decoration:none; font-weight:600; }
-    .container { max-width:1100px; margin:20px auto; padding:20px; background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
-
-    table { width:100%; border-collapse:collapse; margin-top:10px; }
-    th, td { border:1px solid #ddd; padding:8px; text-align:center; vertical-align:top; }
-    th { background:#f0f4f8; }
-    select { width:150px; margin:3px 0; }
-    button { padding:8px 12px; margin:6px 4px; cursor:pointer; border:none; border-radius:6px; }
-    .btn-primary { background:#2b63c6; color:#fff; }
-    .btn-ghost { background:transparent; border:1px solid #ccc; }
-
-    .controls { display:flex; gap:12px; align-items:center; margin-top:12px; flex-wrap:wrap; }
-    .history-panel { margin-top:18px; }
-    .small { font-size:13px; color:#666; }
-
-    /* Modal */
-    .modal-bg { position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.45); z-index:999; }
-    .modal { width:90%; max-width:900px; background:#fff; border-radius:8px; padding:18px; box-shadow:0 8px 30px rgba(0,0,0,0.3); }
-    .modal .modal-head { display:flex; justify-content:space-between; align-items:center; }
-    .modal .modal-body { margin-top:12px; max-height:60vh; overflow:auto; border-top:1px solid #eee; padding-top:12px; }
-    .meta { font-size:13px; color:#666; margin-top:6px; }
-
-    @media (max-width:700px){
-        select { width:100%; }
-        .controls { flex-direction:column; align-items:flex-start; }
-    }
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #555; padding: 8px; text-align: center; }
+    select { width: 150px; margin: 3px 0; }
+    button { padding: 10px 16px; margin-top: 20px; font-size: 16px; cursor: pointer; }
 </style>
 </head>
-<body>
-
-<nav>
-    <a href="#">Trang Chủ</a>
-    <a href="#">Lịch Giúp Lễ</a>
-    <a href="danh_sach_thanh_vien.html" target="_blank">Danh Sách Thành Viên</a>
-    <div style="margin-left:auto; font-weight:600">Quản lý Lịch</div>
+<!-- Thanh Điều Khiển -->
+<nav style="
+    width: 100%;
+    background: #2b63c6;
+    padding: 12px 0;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    font-family: Arial, sans-serif;
+">
+    <a href="index.html" style="color: white; font-size: 18px; text-decoration: none;">Trang Chủ</a>
+    <a href="1.html" style="color: white; font-size: 18px; text-decoration: none;">bản thử nghiệm</a>
+    <a href="danhsach.html" style="color: white; font-size: 18px; text-decoration: none;">Danh Sách Thành Viên</a>
 </nav>
 
-<div class="container">
-    <h2 style="margin:0 0 8px 0">Bảng Chia Lịch Giúp Lễ</h2>
-    <div class="small">Chọn từng người cho mỗi buổi. Lưu / Xuất để ghi vào lịch sử.</div>
+<body>
 
-    <table id="mainTable">
-        <tr><th>Thứ</th><th>Buổi</th><th>Phân Công</th></tr>
+<h2>Bảng Chia Lịch Giúp Lễ</h2>
 
-        <tr><td>Thứ Hai</td><td>Tối</td><td class="cell" data-id="mon_c"></td></tr>
-        <tr><td>Thứ Ba</td><td>Tối</td><td class="cell" data-id="tue_c"></td></tr>
-        <tr><td>Thứ Tư</td><td>Tối</td><td class="cell" data-id="wed_c"></td></tr>
-        <tr><td>Thứ Năm</td><td>Tối</td><td class="cell" data-id="thu_c"></td></tr>
-        <tr><td>Thứ Sáu</td><td>Tối</td><td class="cell" data-id="fri_c"></td></tr>
+<table>
+    <tr>
+        <th>Thứ</th>
+        <th>Buổi</th>
+        <th>Phân Công</th>
+    </tr>
 
-        <tr><td rowspan="2">Thứ Bảy</td><td>Sáng</td><td class="cell" data-id="sat_s"></td></tr>
-        <tr><td>Tối</td><td class="cell" data-id="sat_c"></td></tr>
+    <tr><td>Thứ Hai</td><td>Tối</td><td class="cell" data-id="mon_c"></td></tr>
+    <tr><td>Thứ Ba</td><td>Tối</td><td class="cell" data-id="tue_c"></td></tr>
+    <tr><td>Thứ Tư</td><td>Tối</td><td class="cell" data-id="wed_c"></td></tr>
+    <tr><td>Thứ Năm</td><td>Tối</td><td class="cell" data-id="thu_c"></td></tr>
+    <tr><td>Thứ Sáu</td><td>Tối</td><td class="cell" data-id="fri_c"></td></tr>
 
-        <tr><td rowspan="2">Chủ Nhật</td><td>Sáng</td><td class="cell" data-id="sun_s"></td></tr>
-        <tr><td>Tối</td><td class="cell" data-id="sun_c"></td></tr>
-    </table>
+    <tr><td rowspan="2">Thứ Bảy</td><td>Sáng</td><td class="cell" data-id="sat_s"></td></tr>
+    <tr><td>Tối</td><td class="cell" data-id="sat_c"></td></tr>
 
-    <div class="controls">
-        <button class="btn-primary" onclick="downloadWord()">Tải Lịch Xuống File Word</button>
-        <button class="btn-primary" onclick="saveToHistory()">Lưu Lịch Vào Lịch Sử</button>
-        <button class="btn-ghost" onclick="renderHistory()">Mở Lịch Sử</button>
+    <tr><td rowspan="2">Chủ Nhật</td><td>Sáng</td><td class="cell" data-id="sun_s"></td></tr>
+    <tr><td>Tối</td><td class="cell" data-id="sun_c"></td></tr>
+</table>
 
-        <label style="margin-left:auto;">
-            Tên file khi tải:
-            <input id="fileName" value="lich_giup_le" style="padding:6px;margin-left:6px;border:1px solid #ccc;border-radius:6px;">
-        </label>
-    </div>
-
-    <div class="history-panel" id="historyPanel" style="display:none;">
-        <h3>Lịch Sử (từ localStorage)</h3>
-        <div id="historyList"></div>
-        <div style="margin-top:8px;">
-            <button class="btn-ghost" onclick="clearAllHistory()">Xóa tất cả lịch sử</button>
-        </div>
-    </div>
-</div>
-
-<!-- Modal view -->
-<div class="modal-bg" id="modalBg">
-    <div class="modal">
-        <div class="modal-head">
-            <strong id="modalTitle">Xem lịch</strong>
-            <div>
-                <button class="btn-ghost" onclick="closeModal()">Đóng</button>
-            </div>
-        </div>
-        <div class="meta" id="modalMeta"></div>
-        <div class="modal-body" id="modalBody"></div>
-    </div>
-</div>
+<button onclick="downloadWord()">Tải Lịch Xuống File Word</button>
 
 <script>
-// --- Danh sách tên (đã thống nhất) ---
 const names = [
     "Vỹ","Thắng","Vy","Thư","Thương","N.Minh","K.Bình","N.Anh",
     "V.Minh","Quân","Lan","Thảo","Long","H.Anh","Ánh (bé)","Bích",
     "Phong","Phúc","Linh (bé)","Ngà","Trãi","Ánh (lớn)",
-    "Nhi","Dũng","Cường","Sấy","Triệu"
+    "Nhi","Dũng","Cương","Sấy","Triệu"
 ];
 
-// --- Tạo select HTML ---
-function makeSelect(name) {
-    let html = `<select class="sel">`;
+function makeSelect() {
+    let html = "<select>";
     html += `<option value="">---</option>`;
     names.forEach(n => html += `<option>${n}</option>`);
-    html += `</select>`;
+    html += "</select>";
     return html;
 }
 
-// --- Gắn select vào ô theo yêu cầu số người ---
 document.querySelectorAll(".cell").forEach(cell => {
     let id = cell.dataset.id;
     let count = 4;
     if (id === "sat_s" || id === "sun_s") count = 2;
-    for (let i=1; i<=count; i++) {
-        cell.insertAdjacentHTML('beforeend', makeSelect() + '<br>');
+    for (let i = 1; i <= count; i++) {
+        cell.innerHTML += makeSelect() + "<br>";
     }
 });
 
-// --- Lấy HTML bảng (dùng để lưu lịch, xuất file) ---
-function getTableHTML() {
-    // Clone table and convert selects -> text values
-    const table = document.getElementById("mainTable").cloneNode(true);
-    table.querySelectorAll(".cell").forEach(cell => {
-        const vals = [...cell.querySelectorAll("select")].map(s => s.value || '—');
-        cell.innerHTML = vals.join(" – ");
-    });
-    return table.outerHTML;
-}
-
-// --- Save history (localStorage) ---
-function saveToHistory() {
-    const key = 'schedule_history_v1';
-    const hist = JSON.parse(localStorage.getItem(key) || "[]");
-    const snapshot = {
-        id: Date.now(),
-        createdAt: new Date().toISOString(),
-        tableHTML: getTableHTML()
-    };
-    hist.unshift(snapshot); // mới nhất lên đầu
-    // keep only last 50
-    localStorage.setItem(key, JSON.stringify(hist.slice(0,50)));
-    alert("Đã lưu lịch vào Lịch Sử.");
-}
-
-// --- Render history panel ---
-function renderHistory() {
-    const key = 'schedule_history_v1';
-    const hist = JSON.parse(localStorage.getItem(key) || "[]");
-    const panel = document.getElementById("historyPanel");
-    const list = document.getElementById("historyList");
-    panel.style.display = hist.length ? 'block' : 'none';
-    list.innerHTML = "";
-
-    if (!hist.length) return;
-
-    hist.forEach((item, idx) => {
-        const dt = new Date(item.createdAt);
-        const dstr = dt.toLocaleString();
-        const row = document.createElement("div");
-        row.style.padding = "10px 0";
-        row.style.borderBottom = "1px solid #eee";
-        row.innerHTML = `
-            <div style="display:flex;align-items:center;gap:10px;">
-                <div style="flex:1">
-                    <strong>${dstr}</strong>
-                    <div class="small">ID: ${item.id}</div>
-                </div>
-                <div style="display:flex;gap:8px;">
-                    <button class="btn-ghost" onclick="viewHistory(${item.id})">Xem</button>
-                    <button class="btn-primary" onclick="exportHistory(${item.id})">Tải Word</button>
-                    <button class="btn-ghost" onclick="deleteHistory(${item.id})">Xóa</button>
-                </div>
-            </div>
-        `;
-        list.appendChild(row);
-    });
-
-    // show modal? we keep panel visible
-    panel.scrollIntoView({behavior:'smooth'});
-}
-
-// --- Find history item by id ---
-function getHistoryById(id){
-    const key = 'schedule_history_v1';
-    const hist = JSON.parse(localStorage.getItem(key) || "[]");
-    return hist.find(h => h.id === id);
-}
-
-// --- View history (modal) ---
-function viewHistory(id) {
-    const item = getHistoryById(id);
-    if (!item) { alert("Không tìm thấy mục lịch."); return; }
-    document.getElementById('modalTitle').innerText = "Xem lịch (" + new Date(item.createdAt).toLocaleString() + ")";
-    document.getElementById('modalMeta').innerText = "ID: " + item.id;
-    document.getElementById('modalBody').innerHTML = item.tableHTML + `
-        <div style="margin-top:12px;">
-            <button class="btn-primary" onclick="exportHistory(${item.id})">Tải Word từ bản này</button>
-            <button class="btn-ghost" onclick="closeModal()">Đóng</button>
-        </div>
-    `;
-    openModal();
-}
-
-// --- Export history item to Word ---
-function exportHistory(id) {
-    const item = getHistoryById(id);
-    if (!item) { alert("Không tìm thấy mục lịch."); return; }
-    let content = `<h2>Lịch Giúp Lễ</h2>` + item.tableHTML;
-    content += `<br><br><div style="text-align:center; font-style:italic;">“Phụng sự Chúa trong niềm vui”</div><div style="text-align:center">(Đaminh Saviô)</div>`;
-    downloadContentAsWord(content, `lich_history_${id}.doc`);
-}
-
-// --- Delete one history item ---
-function deleteHistory(id) {
-    if (!confirm("Xác nhận xóa mục lịch này?")) return;
-    const key = 'schedule_history_v1';
-    let hist = JSON.parse(localStorage.getItem(key) || "[]");
-    hist = hist.filter(h => h.id !== id);
-    localStorage.setItem(key, JSON.stringify(hist));
-    renderHistory();
-}
-
-// --- Clear all history ---
-function clearAllHistory() {
-    if (!confirm("Xác nhận xóa toàn bộ lịch sử?")) return;
-    localStorage.removeItem('schedule_history_v1');
-    renderHistory();
-}
-
-// --- Download current table as Word (and auto-save to history) ---
 function downloadWord() {
-    // auto save snapshot to history
-    saveToHistory();
-
-    // build content and download
-    const content = `<h2>Lịch Giúp Lễ</h2>` + getTableHTML() + `<br><br>
-        <div style="text-align:center; font-style:italic; font-size:16px;">“Phụng sự Chúa trong niềm vui”</div>
-        <div style="text-align:center; margin-top:6px; font-size:15px;">(Đaminh Saviô)</div>
-    `;
-    const fname = (document.getElementById('fileName') || {}).value || 'lich_giup_le';
-    downloadContentAsWord(content, fname + '.doc');
-    // refresh history panel so user sees new entry
-    renderHistory();
-}
-
-// --- helper: download HTML as Word (.doc) ---
-function downloadContentAsWord(htmlContent, filename) {
-    const blob = new Blob(['\ufeff', htmlContent], { type: 'application/msword' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    let content = "<h2>Lịch Giúp Lễ</h2><table border='1' cellspacing='0' cellpadding='6'>";
+    document.querySelectorAll("table tr").forEach(tr => {
+        content += "<tr>";
+        tr.querySelectorAll("td,th").forEach(cell => {
+            if (cell.classList.contains("cell")) {
+                let selects = [...cell.querySelectorAll("select")].map(s => s.value || "—").join(" – ");
+                content += `<td>${selects}</td>`;
+            } else {
+                content += `<td>${cell.innerText}</td>`;
+            }
+        });
+        content += "</tr>";
+    });
+    content += "</table>";
+    let blob = new Blob(['\ufeff', content], { type: 'application/msword' });
+    let url = URL.createObjectURL(blob);
+    let a = document.createElement("a");
     a.href = url;
-    a.download = filename;
+    a.download = "lich_giup_le.doc";
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-    URL.revokeObjectURL(url);
 }
-
-// --- Modal controls ---
-function openModal(){ document.getElementById('modalBg').style.display = 'flex'; }
-function closeModal(){ document.getElementById('modalBg').style.display = 'none'; }
-
-// --- On load: render history if any ---
-document.addEventListener('DOMContentLoaded', () => {
-    renderHistory();
-});
 </script>
 
 </body>
+
 </html>
